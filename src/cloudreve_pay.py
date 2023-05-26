@@ -59,7 +59,7 @@ def order():
     load_dotenv('.env')
     # 读取请求头中的X-Cr-Site-Url
     site_url = request.headers.get('X-Cr-Site-Url')
-    if site_url != os.environ.get('site_url'):
+    if site_url != os.environ.get('SITE_URL'):
         # 返回403
         return Response(status=403)
     # 读取post内容
