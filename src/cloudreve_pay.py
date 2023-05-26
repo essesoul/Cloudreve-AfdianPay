@@ -1,26 +1,17 @@
+import json
 import math
 import os
+
+import requests
+
+import afdian
 
 try:
     from flask import Flask, request, Response
 except:
     os.system('pip install -r requirements.txt')
     from flask import Flask, request, Response
-try:
-    import json
-except:
-    os.system('pip install -r requirements.txt')
-    import json
-try:
-    import requests
-except:
-    os.system('pip install -r requirements.txt')
-    import requests
-try:
-    import afdian
-except:
-    os.system('pip install -r requirements.txt')
-    import afdian
+
 try:
     from gevent import pywsgi
 except:

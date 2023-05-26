@@ -1,7 +1,7 @@
 # Cloudreve-AfdianPay
 Cloudreve自定义付款渠道-爱发电接口
 
-参考https://docs.cloudreve.org/use/pro/pay 构建
+参考 https://docs.cloudreve.org/use/pro/pay 构建
 
 推荐使用 **Python3.11**
 

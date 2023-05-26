@@ -1,16 +1,8 @@
+import json
 import math
 import os
+import sqlite3
 
-try:
-    import sqlite3
-except:
-    os.system("pip install -r requirements.txt")
-    import sqlite3
-try:
-    import json
-except:
-    os.system("pip install -r requirements.txt")
-    import json
 try:
     from dotenv import load_dotenv
 except:
