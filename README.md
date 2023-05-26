@@ -19,15 +19,15 @@ Cloudreve自定义付款渠道-爱发电接口
 修改.env文件中的内容
 
 ```
-site_url = "你的网站url，不带斜杠，例如 https://demo.cloudreve.org"
-user_id = "你获取的爱发电user_id"
+SITE_URL="你的网站url，不带斜杠，例如 https://demo.cloudreve.org"
+USER_ID="你获取的爱发电user_id"
 ```
 
 例如
 
 ```
-site_url = "https://demo.cloudreve.org"
-user_id = "abcxxxx123"
+SITE_URL="https://demo.cloudreve.org"
+USER_ID="abcxxxx123"
 ```
 
 运行 `cloudreve_pay.py` 文件即可
