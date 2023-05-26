@@ -45,3 +45,9 @@ USER_ID="abcxxxx123"
 接口地址为： `http://example.com:5000/order/create`  将 `example.com` 更换为你的域名或IP，点击保存
 
 通信密钥可以随意填写，暂时还没加入签名验证，后面有空了再更新
+
+### ⚠️安全事项
+
+为了防止伪造Post请求，**强烈建议在正式上线前更改 `cloudreve_pay.py` 文件中[第28行](https://github.com/essesoul/Cloudreve-AfdianPay/blob/master/src/cloudreve_pay.py#L28)的post路径，并在爱发电后台做相应调整**
+
+后续更新中会加入API主动请求验证获取信息的正确性
