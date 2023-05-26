@@ -48,9 +48,12 @@ TOKEN="aAABBB123xxxxzzz"
 
 通信密钥可以随意填写，暂时还没加入签名验证，后面有空了再更新
 
-### ~~⚠️安全事项~~
+------
 
-### **最近一次更新中已增加了主动调用API验证数据真实性的功能，可以不再进行下面操作**
+
+### **最近一次更新中已增加了主动调用API验证数据真实性的功能，可以不再进行下面操作**🎉
+
+### ~~⚠️安全事项~~
 
 ~~为了防止伪造Post请求，**强烈建议在正式上线前更改 `cloudreve_pay.py` 文件中[第28行](https://github.com/essesoul/Cloudreve-AfdianPay/blob/Beta-V0.0.1/src/cloudreve_pay.py#L28)的post路径，并在爱发电后台做相应调整**~~
 
