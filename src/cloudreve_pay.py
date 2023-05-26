@@ -30,6 +30,7 @@ def respond():
     # 解析返回的json值
     data = request.get_data()
     data = json.loads(data)['data']['order']
+    out_trade_no = data['out_trade_no']
     # 获取订单信息（remark）
     order_no = data['remark']
     # 获取订单amount
@@ -38,7 +39,7 @@ def respond():
     # 查询订单
     amount = 0
     notify_url = ""
-    raw = afdian.check_order(order_no)
+    raw = afdian.check_order(order_no, out_trade_no)
     if raw[1] != 0:
         amount = raw[1]
     if afd_amount == int(amount):
