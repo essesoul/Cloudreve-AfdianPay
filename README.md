@@ -13,6 +13,7 @@ Cloudreve自定义付款渠道-爱发电接口
 
 - 需要先[注册爱发电](https://afdian.net/)账户
 - 在[开发人员页面](https://afdian.net/dashboard/dev)获取**user_id**
+- 在[开发人员页面](https://afdian.net/dashboard/dev)底部获取**API Token**
 
 下载 `src` 文件夹，运行 `pip install -r requirements.txt` 安装依赖包
 
@@ -20,8 +21,8 @@ Cloudreve自定义付款渠道-爱发电接口
 
 ```
 SITE_URL="你的网站url，不带斜杠，例如 https://demo.cloudreve.org"
-USER_ID="你获取的爱发电user_id"
-TOKEN="你获取的爱发电token"
+USER_ID="你的爱发电user_id"
+TOKEN="你的爱发电api token"
 ```
 
 例如
