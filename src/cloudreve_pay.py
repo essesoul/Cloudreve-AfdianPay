@@ -30,10 +30,8 @@ def respond():
     # 解析返回的json值
     data = request.get_data()
     data = json.loads(data)['data']['order']
-    # print(data)
     # 获取订单信息（remark）
     order_no = data['remark']
-    # print(order_no)
     # 获取订单amount
     afd_amount = str(data['total_amount']).split(".")[0]
     afd_amount = int(afd_amount)
@@ -85,7 +83,6 @@ def order():
         "code": 0,
         "data": order_url
     }
-    # print(back)
     # json格式化back
     back = json.dumps(back, ensure_ascii=False)
     return Response(back, mimetype='application/json')
