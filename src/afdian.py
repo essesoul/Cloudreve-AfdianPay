@@ -1,7 +1,11 @@
+import hashlib
 import json
 import math
 import os
 import sqlite3
+import time
+
+import requests
 
 try:
     from dotenv import load_dotenv
@@ -49,7 +53,14 @@ def new_order(order_info, amount):
     return order_url
 
 
-def check_order(order_no):
+def check_order(order_no, out_trade_no):
+    # API主动验证
+    api_data = api_check(out_trade_no)
+    if api_data[0] == "":
+        return ["", 0, ""]
+    if api_data[1] == 0:
+        return ["", 0, ""]
+    # 本地数据库验证
     db_file()
     conn = sqlite3.connect('afdian_pay.db')
     c = conn.cursor()
@@ -57,6 +68,31 @@ def check_order(order_no):
     cursor = c.execute("SELECT order_no, amount, notify_url from afdian_pay")
     for row in cursor:
         if row[0] == order_no:
+            conn.close()
             return row
     conn.close()
     return ["", 0, ""]
+
+
+def api_check(out_trade_no):
+    url = "https://afdian.net/api/open/query-order"
+    load_dotenv('.env')
+    user_id = os.environ.get('USER_ID')
+    token = os.environ.get('TOKEN')
+    t = time.time()
+    ts = str(int(t))
+    # print(ts)
+    params = '{"out_trade_no":"' + out_trade_no + '"}'
+    sign_data = token + "params" + params + "ts" + ts + "user_id" + user_id
+    sign = hashlib.md5(sign_data.encode(encoding='UTF-8')).hexdigest()
+    post_data = {"user_id": user_id, "params": params, "ts": ts, "sign": sign}
+    # 发送post请求
+    response = requests.post(url, data=post_data)
+    total_count = json.loads(response.text)['data']["total_count"]
+    if total_count == 0:
+        return ["", ""]
+    # 解析json
+    response = json.loads(response.text)['data']["list"][0]
+    total_amount = int(str(response['total_amount']).split(".")[0])
+    order_no = response['remark']
+    return [order_no, total_amount]

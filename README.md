@@ -16,18 +16,20 @@ Cloudreve自定义付款渠道-爱发电接口
 
 下载 `src` 文件夹，运行 `pip install -r requirements.txt` 安装依赖包
 
-修改.env文件中的内容
+修改 `.env` 文件中的内容
 
 ```
 SITE_URL="你的网站url，不带斜杠，例如 https://demo.cloudreve.org"
 USER_ID="你获取的爱发电user_id"
+TOKEN="你获取的爱发电token"
 ```
 
 例如
 
 ```
 SITE_URL="https://demo.cloudreve.org"
-USER_ID="abcxxxx123"
+USER_ID="abcxxxxxxx123"
+TOKEN="aAABBB123xxxxzzz"
 ```
 
 运行 `cloudreve_pay.py` 文件即可
@@ -46,8 +48,11 @@ USER_ID="abcxxxx123"
 
 通信密钥可以随意填写，暂时还没加入签名验证，后面有空了再更新
 
-### ⚠️安全事项
+### ~~⚠️安全事项~~
 
-为了防止伪造Post请求，**强烈建议在正式上线前更改 `cloudreve_pay.py` 文件中[第28行](https://github.com/essesoul/Cloudreve-AfdianPay/blob/master/src/cloudreve_pay.py#L28)的post路径，并在爱发电后台做相应调整**
+### **最近一次更新中已增加了主动调用API验证数据真实性的功能，可以不再进行下面操作**
 
-后续更新中会加入API主动请求验证获取信息的正确性
+~~为了防止伪造Post请求，**强烈建议在正式上线前更改 `cloudreve_pay.py` 文件中[第28行](https://github.com/essesoul/Cloudreve-AfdianPay/blob/Beta-V0.0.1/src/cloudreve_pay.py#L28)的post路径，并在爱发电后台做相应调整**~~
+
+~~后续更新中会加入API主动请求验证获取信息的正确性~~
+
