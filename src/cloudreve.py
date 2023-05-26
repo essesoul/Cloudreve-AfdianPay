@@ -100,6 +100,6 @@ def order():
     return Response(back, mimetype='application/json')
 
 
-print("Cloudreve Afdian Pay Server\n已启动\nGithub:https://github.com/essesoul/Cloudreve-AfdianPay\n")
+print("Cloudreve Afdian Pay Server\n已启动\nGithub: https://github.com/essesoul/Cloudreve-AfdianPay\n")
 server = pywsgi.WSGIServer(('0.0.0.0', 5000), app)
 server.serve_forever()

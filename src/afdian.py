@@ -1,5 +1,6 @@
-import os
 import math
+import os
+
 try:
     import sqlite3
 except:
@@ -15,8 +16,10 @@ try:
 except:
     os.system("pip install -r requirements.txt")
     from dotenv import load_dotenv
+
+
 def db_file():
-     # 判断afdian_pay.db是否存在
+    # 判断afdian_pay.db是否存在
     if os.path.exists("afdian_pay.db"):
         return
     else:
@@ -29,6 +32,7 @@ def db_file():
         conn.commit()
         conn.close()
         return
+
 
 def db_insert(order_no, amount, notify_url):
     db_file()
@@ -51,6 +55,7 @@ def new_order(order_info, amount):
     order_url = afdian_url + "&remark=" + str(order_no) + "&custom_price=" + str(math.ceil(amount / 100))
     db_insert(order_no, str(round(amount / 100)), order_info['notify_url'])
     return order_url
+
 
 def check_order(order_no):
     db_file()
