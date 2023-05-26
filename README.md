@@ -16,7 +16,7 @@ Cloudreve自定义付款渠道-爱发电接口
 
 下载 `src` 文件夹，运行 `pip install -r requirements.txt` 安装依赖包
 
-修改.env文件中的内容为你自己的内容
+修改.env文件中的内容
 
 ```
 site_url = "你的网站url，不带斜杠，例如 https://demo.cloudreve.org"
