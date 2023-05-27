@@ -1,6 +1,7 @@
 import json
 import math
 import os
+import time
 
 import requests
 
@@ -58,11 +59,23 @@ def respond():
 @app.route('/order/create', methods=['post'])
 def order():
     load_dotenv('.env')
+    # 删除SITE_URL尾部的“/”
+    if os.environ.get('SITE_URL')[-1] == "/":
+        os.environ['SITE_URL'] = os.environ.get('SITE_URL')[:-1]
     # 读取请求头中的X-Cr-Site-Url
     site_url = request.headers.get('X-Cr-Site-Url')
     if site_url != os.environ.get('SITE_URL'):
-        # 返回403
-        return Response(status=403)
+        back = {"code": 412, "error": "验证失败，请检查.env文件"}
+        back = json.dumps(back, ensure_ascii=False)
+        return Response(back, mimetype='application/json')
+    # 获取Authorization
+    authorization = request.headers.get('Authorization').split("Bearer")[1].strip()
+    # sign = authorization.split(":")[0]
+    timestamp = authorization.split(":")[1]
+    t = str(int(time.time()))
+    if t > timestamp:
+        back = {"code": 412, "error": "时间戳验证失败"}
+        return Response(back, mimetype='application/json')
     # 读取post内容
     data = request.get_data()
     # 解析json
@@ -73,8 +86,10 @@ def order():
     # amount = amount * 1
     amount = math.ceil(amount)
     if amount < 500:
-        # 返回403
-        return Response(status=403)
+        # 返回错误信息
+        back = {"code": 417, "error": "金额需要大于等于5元"}
+        back = json.dumps(back, ensure_ascii=False)
+        return Response(back, mimetype='application/json')
     notify_url = data['notify_url']
     order_info = {"order_no": order_no, "amount": amount, "notify_url": notify_url}
     # json格式化order_info
@@ -89,6 +104,10 @@ def order():
     return Response(back, mimetype='application/json')
 
 
-print("Cloudreve Afdian Pay Server\n已启动\nGithub: https://github.com/essesoul/Cloudreve-AfdianPay\n")
-server = pywsgi.WSGIServer(('0.0.0.0', 5000), app)
+print("Cloudreve Afdian Pay Server\t已启动\nGithub: https://github.com/essesoul/Cloudreve-AfdianPay")
+print("-------------------------")
+load_dotenv('.env')
+port = int(os.getenv('PORT'))
+print("程序运行端口：" + str(port))
+server = pywsgi.WSGIServer(('0.0.0.0', port), app)
 server.serve_forever()
