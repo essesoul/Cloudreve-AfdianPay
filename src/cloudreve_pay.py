@@ -89,6 +89,10 @@ def order():
     return Response(back, mimetype='application/json')
 
 
-print("Cloudreve Afdian Pay Server\n已启动\nGithub: https://github.com/essesoul/Cloudreve-AfdianPay\n")
-server = pywsgi.WSGIServer(('0.0.0.0', 5000), app)
+print("Cloudreve Afdian Pay Server\t已启动\nGithub: https://github.com/essesoul/Cloudreve-AfdianPay")
+print("-------------------------")
+load_dotenv('.env')
+port = int(os.getenv('PORT'))
+print("程序运行端口：" + str(port))
+server = pywsgi.WSGIServer(('0.0.0.0', port), app)
 server.serve_forever()
