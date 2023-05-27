@@ -70,14 +70,10 @@ def order():
         return Response(back, mimetype='application/json')
     # 获取Authorization
     authorization = request.headers.get('Authorization').split("Bearer")[1].strip()
-    sign = authorization.split(":")[0]
+    # sign = authorization.split(":")[0]
     timestamp = authorization.split(":")[1]
-    print(sign)
-    print(timestamp)
     t = str(int(time.time()))
-    print(t)
     if t > timestamp:
-        print("时间戳验证失败")
         back = {"code": 412, "error": "时间戳验证失败"}
         return Response(back, mimetype='application/json')
     # 读取post内容
