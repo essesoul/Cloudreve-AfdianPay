@@ -16,6 +16,12 @@ Cloudreve自定义付款渠道-爱发电接口
 - 在[开发人员页面](https://afdian.net/dashboard/dev)获取**user_id**
 - 在[开发人员页面](https://afdian.net/dashboard/dev)底部获取**API Token**
 
+------
+
+**可以在[Cloudreve-AfdianPay-Build仓库](https://github.com/essesoul/Cloudreve-AfdianPay-Build)下载编译好的文件直接运行，或者自行配置运行环境**
+
+------
+
 下载 `src` 文件夹，运行 `pip install -r requirements.txt` 安装依赖包
 
 修改 `.env` 文件中的内容
@@ -43,6 +49,8 @@ PORT="5000"
 ```
 PORT="5000"# 监听端口，默认5000
 ```
+
+------
 
 ### 配置
 
