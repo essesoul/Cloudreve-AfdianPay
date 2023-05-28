@@ -81,7 +81,6 @@ def api_check(out_trade_no):
     token = os.environ.get('TOKEN')
     t = time.time()
     ts = str(int(t))
-    # print(ts)
     params = '{"out_trade_no":"' + out_trade_no + '"}'
     sign_data = token + "params" + params + "ts" + ts + "user_id" + user_id
     sign = hashlib.md5(sign_data.encode(encoding='UTF-8')).hexdigest()
