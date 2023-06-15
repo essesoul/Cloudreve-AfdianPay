@@ -18,7 +18,7 @@ Cloudreve自定义付款渠道-爱发电接口
 
 ------
 
-**可以在[Cloudreve-AfdianPay-Build仓库](https://github.com/essesoul/Cloudreve-AfdianPay-Build)下载编译好的文件直接运行，或者自行配置运行环境**
+~~可以在[Cloudreve-AfdianPay-Build仓库](https://github.com/essesoul/Cloudreve-AfdianPay-Build)下载编译好的文件直接运行，或者自行配置运行环境~~（存在问题，后面有空了再修复）
 
 ------
 
