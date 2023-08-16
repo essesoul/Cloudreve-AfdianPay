@@ -18,10 +18,6 @@ Cloudreve自定义付款渠道-爱发电接口
 
 ------
 
-~~可以在[Cloudreve-AfdianPay-Build仓库](https://github.com/essesoul/Cloudreve-AfdianPay-Build)下载编译好的文件直接运行，或者自行配置运行环境~~（存在问题，后面有空了再修复）
-
-------
-
 下载 `src` 文件夹，运行 `pip install -r requirements.txt` 安装依赖包
 
 修改 `.env` 文件中的内容
@@ -63,16 +59,8 @@ PORT="5000"# 监听端口，默认5000
 
 接口地址为： `http://example.com:5000/order/create`  将 `example.com` 更换为你的域名或IP，点击保存
 
-通信密钥可以随意填写，暂时还没加入签名验证，后面有空了再更新
+通信密钥可以随意填写，暂时还没加入签名验证
 
-------
-
-### **近期的一次更新中已增加了主动调用API验证数据真实性的功能，可以不再进行下面操作**🎉
-
-### ~~⚠️安全事项~~
-
-~~为了防止伪造Post请求，**强烈建议在正式上线前更改 `cloudreve_pay.py`
-文件中[第28行](https://github.com/essesoul/Cloudreve-AfdianPay/blob/Beta-V0.0.1/src/cloudreve_pay.py#L28)
 的post路径，并在爱发电后台做相应调整**~~
 
 ~~后续更新中会加入API主动请求验证获取信息的正确性~~
