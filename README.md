@@ -1,4 +1,6 @@
 # Cloudreve-AfdianPay
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fessesoul%2FCloudreve-AfdianPay.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fessesoul%2FCloudreve-AfdianPay?ref=badge_shield)
+
 
 Cloudreve自定义付款渠道-爱发电接口
 
@@ -65,3 +67,7 @@ PORT="5000"# 监听端口，默认5000
 
 ~~后续更新中会加入API主动请求验证获取信息的正确性~~
 
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fessesoul%2FCloudreve-AfdianPay.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fessesoul%2FCloudreve-AfdianPay?ref=badge_large)
