@@ -5,7 +5,7 @@ services:
     image: xxdl/cloudreve-pay-afd:latest
     container_name: cloudreve-pay-afd
     network_mode: host
-    command: ["python","-u", "cloudreve_pay.py"]
+    command: [ "python","-u", "cloudreve_pay.py" ]
     environment:
       - SITE_URL=https://pro.abc.com网盘的域名,最后没有/
       - USER_ID=爱发电的userid
