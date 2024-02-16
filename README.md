@@ -10,15 +10,13 @@ Cloudreve自定义付款渠道-爱发电接口
 
 ## 使用方法
 
-### 部署
-
+### 爱发电账号
 使用爱发电接口
-
 - 需要先[注册爱发电](https://afdian.net/)账户
 - 在[开发人员页面](https://afdian.net/dashboard/dev)获取**user_id**
 - 在[开发人员页面](https://afdian.net/dashboard/dev)底部获取**API Token**
 
-------
+### 手动部署
 
 下载 `src` 文件夹，运行 `pip install -r requirements.txt` 安装依赖包
 
@@ -47,6 +45,25 @@ PORT="5000"
 ```
 PORT="5000"# 监听端口，默认5000
 ```
+
+### docker-compose部署
+
+```
+version: '3'
+
+services:
+  cloudreve-pay-afd:
+    image: xxdl/cloudreve-pay-afd:latest
+    container_name: cloudreve-pay-afd
+    network_mode: host
+    command: ["python","-u", "cloudreve_pay.py"]
+    environment:
+      - SITE_URL=https://demo.cloudreve.org
+      - USER_ID=abcxxxxxxx123
+      - TOKEN=aAABBB123xxxxzzz
+      - PORT=5000
+```
+
 
 ------
 
