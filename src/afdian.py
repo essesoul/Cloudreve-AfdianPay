@@ -10,8 +10,7 @@ import requests
 try:
     from dotenv import load_dotenv
 except:
-    os.system("pip install -r requirements.txt")
-    from dotenv import load_dotenv
+    print("未找到dotenv模块")
 
 
 def db_file():

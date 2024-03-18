@@ -10,20 +10,40 @@ import afdian
 try:
     from flask import Flask, request, Response
 except:
-    os.system('pip install -r requirements.txt')
-    from flask import Flask, request, Response
+    print("未找到flask模块")
 
 try:
     from gevent import pywsgi
 except:
-    os.system('pip install -r requirements.txt')
-    from gevent import pywsgi
+    print("未找到gevent模块")
 try:
     from dotenv import load_dotenv
 except:
-    os.system('pip install -r requirements.txt')
-    from dotenv import load_dotenv
+    print("未找到dotenv模块")
 app = Flask(__name__)
+
+
+# 初始化检查
+def check():
+    # 判断.env文件是否存在
+    if os.path.exists('.env'):
+        if os.environ.get('SITE_URL') == "":
+            print("SITE_URL未设置,已停止运行")
+            exit()
+        if os.environ.get('USER_ID') == "":
+            print("USER_ID未设置,已停止运行")
+            exit()
+        if os.environ.get('TOKEN') == "":
+            print("TOKEN未设置,已停止运行")
+            exit()
+        if os.environ.get('PORT') == "":
+            print("PORT未设置,已停止运行")
+            exit()
+        print("初始化检查通过")
+        return
+    else:
+        print("未找到.env文件,已停止运行")
+        exit()
 
 
 @app.route('/afdian', methods=['POST'])
@@ -103,6 +123,9 @@ def order():
     back = json.dumps(back, ensure_ascii=False)
     return Response(back, mimetype='application/json')
 
+
+# 初始化检查
+check()
 
 print("Cloudreve Afdian Pay Server\t已启动\nGithub: https://github.com/essesoul/Cloudreve-AfdianPay")
 print("-------------------------")
