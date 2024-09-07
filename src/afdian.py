@@ -43,7 +43,7 @@ def db_insert(order_no, amount, notify_url):
 # 创建订单
 def new_order(order_info, amount):
     load_dotenv('.env')
-    afdian_url = "https://afdian.net/order/create?user_id=" + os.getenv('USER_ID')
+    afdian_url = "https://afdian.com/order/create?user_id=" + os.getenv('USER_ID')
     # 解析json
     order_info = json.loads(order_info)
     order_no = order_info['order_no']
@@ -74,7 +74,7 @@ def check_order(order_no, out_trade_no):
 
 
 def api_check(out_trade_no):
-    url = "https://afdian.net/api/open/query-order"
+    url = "https://afdian.com/api/open/query-order"
     load_dotenv('.env')
     user_id = os.environ.get('USER_ID')
     token = os.environ.get('TOKEN')
