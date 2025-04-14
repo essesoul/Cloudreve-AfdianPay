@@ -4,7 +4,7 @@
 
 Cloudreve自定义付款渠道-爱发电接口
 
-参考 https://docs.cloudreve.org/use/pro/pay 构建
+参考 https://docsv4.cloudreve.org/zh/payment/custom 构建
 
 推荐使用 **Python3.11**
 
@@ -76,7 +76,7 @@ services:
 
 在Cloudreve管理后台-参数设置-增值服务-自定义付款渠道中填写付款方式名称、支付接口地址、通信密钥
 
-接口地址为： `http://example.com:5000/order/create`  将 `example.com` 更换为你的域名或IP，点击保存
+接口地址为： `http://example.com:5000/order`  将 `example.com` 更换为你的域名或IP，点击保存
 
 通信密钥可以随意填写，暂时还没加入签名验证
 
