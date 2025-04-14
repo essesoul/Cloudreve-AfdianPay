@@ -65,18 +65,28 @@ def respond():
         amount = raw[1]
     if afd_amount == int(amount):
         # 订单金额相同
+        # 标记订单为已支付
+        afdian.mark_order_paid(order_no)
         # 通知网站
         notify_url = raw[2]
         url = notify_url
         # 发送get请求
-        requests.get(url)
+        for attempt in range(3):
+            try:
+                resp = requests.get(url, timeout=10)
+                if resp.status_code == 200 and resp.json().get('code') == 0:
+                    break
+            except Exception:
+                if attempt == 2:  # 最后一次重试仍然失败
+                    raise
+                time.sleep(2 ** attempt)
     # json格式化
     back = '{"ec":200,"em":""}'
     json.dumps(back, ensure_ascii=False)
     return Response(back, mimetype='application/json')
 
 
-@app.route('/order/create', methods=['post'])
+@app.route('/order', methods=['post','get'])
 def order():
     load_dotenv('.env')
     # 删除SITE_URL尾部的“/”
@@ -96,6 +106,11 @@ def order():
     if t > timestamp:
         back = {"code": 412, "error": "时间戳验证失败"}
         return Response(back, mimetype='application/json')
+    if request.method == 'POST':
+        return create_order()
+    else:
+        return check_order()
+def create_order():
     # 读取post内容
     data = request.get_data()
     # 解析json
@@ -110,8 +125,9 @@ def order():
         back = {"code": 417, "error": "金额需要大于等于5元"}
         back = json.dumps(back, ensure_ascii=False)
         return Response(back, mimetype='application/json')
+    currency = data['currency']
     notify_url = data['notify_url']
-    order_info = {"order_no": order_no, "amount": amount, "notify_url": notify_url}
+    order_info = {"order_no": order_no, "amount": amount, "currency": currency, "notify_url": notify_url}
     # json格式化order_info
     order_info = json.dumps(order_info, ensure_ascii=False)
     order_url = afdian.new_order(order_info, amount)
@@ -122,7 +138,17 @@ def order():
     # json格式化back
     back = json.dumps(back, ensure_ascii=False)
     return Response(back, mimetype='application/json')
-
+def check_order():
+    order_no = request.args.get('order_no')
+    try:
+        status = afdian.get_order_status(order_no)
+        back = {"code": 0, "data": "PAID" if status else "UNPAID"}
+        back = json.dumps(back, ensure_ascii=False)
+        return Response(back, mimetype='application/json')
+    except Exception as e:
+        back = {"code": 500, "error": "Failed to query order status."}
+        back = json.dumps(back, ensure_ascii=False)
+        return Response(back, mimetype='application/json')
 
 # 初始化检查
 check()
