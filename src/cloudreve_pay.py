@@ -98,6 +98,11 @@ def order():
         back = {"code": 412, "error": "验证失败，请检查.env文件"}
         back = json.dumps(back, ensure_ascii=False)
         return Response(back, mimetype='application/json')
+    if request.method == 'POST':
+        return create_order()
+    else:
+        return check_order()
+def create_order():
     # 获取Authorization
     authorization = request.headers.get('Authorization').split("Bearer")[1].strip()
     # sign = authorization.split(":")[0]
@@ -106,11 +111,6 @@ def order():
     if t > timestamp:
         back = {"code": 412, "error": "时间戳验证失败"}
         return Response(back, mimetype='application/json')
-    if request.method == 'POST':
-        return create_order()
-    else:
-        return check_order()
-def create_order():
     # 读取post内容
     data = request.get_data()
     # 解析json
