@@ -1,6 +1,5 @@
 import hashlib
 import json
-import math
 import os
 import sqlite3
 import time
@@ -11,6 +10,7 @@ try:
     from dotenv import load_dotenv
 except:
     print("未找到dotenv模块")
+    exit()
 
 
 def db_file():
@@ -48,8 +48,8 @@ def new_order(order_info, amount):
     # 解析json
     order_info = json.loads(order_info)
     order_no = order_info['order_no']
-    order_url = afdian_url + "&remark=" + str(order_no) + "&custom_price=" + str(math.ceil(amount / 100))
-    db_insert(order_no, str(round(amount / 100)), order_info['notify_url'])
+    order_url = afdian_url + "&remark=" + str(order_no) + "&custom_price=" + f"{round(amount / 100, 2):.2f}"
+    db_insert(order_no, f"{round(amount / 100, 2):.2f}", order_info['notify_url'])
     return order_url
 
 

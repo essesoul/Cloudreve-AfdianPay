@@ -1,5 +1,4 @@
 import json
-import math
 import os
 import time
 import afdian
@@ -63,15 +62,13 @@ def respond():
     # 获取订单信息（remark）
     order_no = data['remark']
     # 获取订单amount
-    afd_amount = str(data['total_amount']).split(".")[0]
-    afd_amount = int(afd_amount)
+    afd_amount = str(data['total_amount'])
     # 查询订单
     amount = 0
-    notify_url = ""
     raw = afdian.check_order(order_no, out_trade_no)
     if raw[1] != 0:
         amount = raw[1]
-    if afd_amount == int(amount):
+    if afd_amount == amount:
         # 订单金额相同
         # 标记订单为已支付
         afdian.mark_order_paid(order_no)
@@ -81,7 +78,7 @@ def respond():
         # 发送get请求
         for attempt in range(3):
             try:
-                resp = requests.get(url, timeout=10)
+                resp = requests.get(url)
                 if resp.status_code == 200 and resp.json().get('code') == 0:
                     break
             except Exception:
@@ -136,7 +133,6 @@ def create_order():
             amount = c.convert(amount / CURRENCY_UNIT[currency], currency, 'CNY') * 100
     # 金额处理（自行修改下面的数值）
     # amount = amount * 1
-    amount = math.ceil(amount)
     if amount < 500:
         # 返回错误信息
         back = {"code": 417, "error": "CNY金额需要大于等于5元"}
