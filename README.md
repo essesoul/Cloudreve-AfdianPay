@@ -12,9 +12,9 @@ Cloudreve自定义付款渠道-爱发电接口
 
 ### 爱发电账号
 使用爱发电接口
-- 需要先[注册爱发电](https://afdian.net/)账户
-- 在[开发人员页面](https://afdian.net/dashboard/dev)获取**user_id**
-- 在[开发人员页面](https://afdian.net/dashboard/dev)底部获取**API Token**
+- 需要先[注册爱发电](https://afdian.com/)账户
+- 在[开发人员页面](https://afdian.com/dashboard/dev)获取**user_id**
+- 在[开发人员页面](https://afdian.com/dashboard/dev)底部获取**API Token**
 
 ### 手动部署
 
@@ -69,7 +69,7 @@ services:
 
 ### 配置
 
-在[爱发电开发者页面](https://afdian.net/dashboard/dev)设置**Webhook URL** `http://example.com:5000/afdian`
+在[爱发电开发者页面](https://afdian.com/dashboard/dev)设置**Webhook URL** `http://example.com:5000/afdian`
 将 `example.com` 更换为你的域名或IP，点击保存
 
 如果没有报错则说明成功
