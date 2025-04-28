@@ -1,6 +1,5 @@
 import hashlib
 import json
-import math
 import os
 import sqlite3
 import time
@@ -11,6 +10,7 @@ try:
     from dotenv import load_dotenv
 except:
     print("未找到dotenv模块")
+    exit()
 
 
 def db_file():
@@ -23,7 +23,7 @@ def db_file():
         c = conn.cursor()
         # 创建表
         c.execute('''CREATE TABLE afdian_pay
-               (order_no text, amount text, notify_url text)''')
+               (order_no text, amount text, notify_url text, is_paid BOOLEAN DEFAULT 0)''')
         conn.commit()
         conn.close()
         return
@@ -34,7 +34,8 @@ def db_insert(order_no, amount, notify_url):
     conn = sqlite3.connect('afdian_pay.db')
     c = conn.cursor()
     # 插入数据
-    c.execute("INSERT INTO afdian_pay VALUES ('" + order_no + "', '" + amount + "', '" + notify_url + "')")
+    c.execute("INSERT INTO afdian_pay (order_no, amount, notify_url, is_paid) VALUES (?, ?, ?, 0)",
+              (order_no, amount, notify_url))
     conn.commit()
     conn.close()
     return True
@@ -47,8 +48,8 @@ def new_order(order_info, amount):
     # 解析json
     order_info = json.loads(order_info)
     order_no = order_info['order_no']
-    order_url = afdian_url + "&remark=" + str(order_no) + "&custom_price=" + str(math.ceil(amount / 100))
-    db_insert(order_no, str(round(amount / 100)), order_info['notify_url'])
+    order_url = afdian_url + "&remark=" + str(order_no) + "&custom_price=" + f"{round(amount / 100, 2):.2f}"
+    db_insert(order_no, f"{round(amount / 100, 2):.2f}", order_info['notify_url'])
     return order_url
 
 
@@ -71,6 +72,27 @@ def check_order(order_no, out_trade_no):
             return row
     conn.close()
     return ["", 0, ""]
+
+
+def mark_order_paid(order_no):
+    db_file()
+    conn = sqlite3.connect('afdian_pay.db')
+    c = conn.cursor()
+    c.execute("UPDATE afdian_pay SET is_paid = 1 WHERE order_no = ?", (order_no,))
+    conn.commit()
+    conn.close()
+    return True
+
+
+def get_order_status(order_no):
+    """获取订单支付状态"""
+    db_file()
+    conn = sqlite3.connect('afdian_pay.db')
+    c = conn.cursor()
+    c.execute("SELECT is_paid FROM afdian_pay WHERE order_no = ?", (order_no,))
+    result = c.fetchone()
+    conn.close()
+    return bool(result[0]) if result else False
 
 
 def api_check(out_trade_no):
