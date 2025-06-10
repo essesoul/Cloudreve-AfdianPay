@@ -2,4 +2,4 @@ currencyconverter==0.18.5
 Flask==3.1.0
 gevent==24.11.1
 python-dotenv==1.1.0
-Requests==2.32.3
+Requests==2.32.4
