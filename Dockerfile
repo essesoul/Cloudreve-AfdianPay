@@ -1,5 +1,5 @@
-# 使用 Python 3.11 的官方镜像作为基础镜像
-FROM python:3.11.7-alpine
+# 使用 Python 3.12 的官方镜像作为基础镜像
+FROM python:3.12-alpine
 
 # 设置工作目录为 /src
 WORKDIR /src
@@ -11,4 +11,4 @@ COPY src /src
 RUN pip install --no-cache-dir -r requirements.txt
 
 # 启动程序
-cmd ["python", "cloudreve_pay.py"]
+CMD ["python", "-u", "cloudreve_pay.py"]

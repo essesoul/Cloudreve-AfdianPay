@@ -6,7 +6,7 @@ Cloudreve自定义付款渠道-爱发电接口
 
 参考 https://docsv4.cloudreve.org/zh/payment/custom 构建
 
-推荐使用 **Python3.11**
+推荐使用 **Python3.12**
 
 ## 使用方法
 
@@ -61,6 +61,7 @@ services:
     command: ["python","-u", "cloudreve_pay.py"]
     environment:
       - SITE_URL=https://demo.cloudreve.org
+      - COMMUNICATION_KEY=xxxxxx
       - USER_ID=abcxxxxxxx123
       - TOKEN=aAABBB123xxxxzzz
       - PORT=5000
